@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+    <link th:href="@{/css/bootstrap.min.css}" rel="stylesheet">
+    <link th:href="@{/css/jquery.dataTables.min.css}" rel="stylesheet">
+    <script th:src="@{js/jquery.dataTables.min.js}"></script>
+    <script th:src="@{js/restCountry.js}"></script>
+  <head>
+    <title>Corona Virus Tracker application</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+  </head>
+  <script type="text/javascript">
+    $(document).ready(function()
+    {
+    	$('#myTable').DataTable();
+    });
+    </script>
+    <style>
+    *flag
+    {
+    margin:auto;
+    height:50px;
+    width:75px;
+    box-sizing:border-box;
+    background-size:cover;
+   }
+ </style>
+  <body>
+  	<div class="jumbotron" style="background-image:url(/images/images.jpg); background-size:cover;">
+  <div class="p-3mb-2">
+    <h1 class="heading text-ligth">Corona Virus Tracker application</h1><br>
+    <p>This Application List the Current number of cases reported across the globe</p>
+    <div class="badge bg-danger text-light">
+    <a href="#" th:href="@{/viewChart}" role=button class="btn btn-danger">
+      <h1 th:text="${totalDeathsReported}"></h1>
+     </a>
+    </div>
+    <p class="lead">Total cases reported as of Today</p>
+    </div>
+    <marquee behavior="alternate"><div class="badge bd-success text-light"><h1>Wear Mask.Use Santitizer.Keep Social Distance</h1></div></marquee>
+    </div>
+    <div class="container">
+  <table class="table table-striped" id="MyTable" border="1">
+  <thead>
+      <tr class="table-row bg-dark text-light">
+        <th>State</th>
+        <th>flag</th>
+        <th>Country</th>
+        <th>Total Deaths Reported</th>
+         <th>Changes Since Last Day</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr th:each="locationstate : ${LocationStates}">
+        <td th:text="${locationstate.state}"></td>
+        <td ></td>
+        <td th:text="${locationstate.country}"></td>
+        <td th:text="${locationstate.latestTotalDeaths}"></td>
+        <td th:text="${locationstate.differFromPrevay}"></td>
+      </tr>
+      </tbody>
+    </table>
+    </div>
+    <!-- <script type="text/javascript">
+    const countriesList = document.getElementById("countries");
+    let countries; 
+
+    countriesList.addEventListener("change", CountrySelection);
+
+    function CountrySelection(event) {
+      displayCountryInfo(event.target.value);
+    }
+    fetch("https://restcountries.com/v3.1/all")
+    .then(res => res.json())
+    .then(data => initialize(data))
+    .catch(err => console.log("Error:", err));
+
+    function initialize(countriesData) {
+      countries = countriesData;
+      let options = "";
+    countries.forEach(country => options+=`<option value="${country.alpha3Code}">${country.name}</option>`);
+      
+      countriesList.innerHTML = options;
+      
+      countriesList.selectedIndex = Math.floor(Math.random()*countriesList.length);
+      displayCountryInfo(countriesList[countriesList.selectedIndex].value);
+    }
+
+    function displayCountryInfo(countryByAlpha3Code) {
+      const countryData = countries.find(country => country.alpha3Code === countryByAlpha3Code);
+      document.querySelector("#flag").src = countryData.flag;
+    }   
+  </script>  
+    - -->
+    
+    
+    
+    
+ 
+  </body>
+  </html>
